@@ -1,29 +1,28 @@
-# tf_hetzner_wireguard
+# tf_hetzner_wireguard_podman
 
 ## Description
 
-Creates a server on Hetzner Online and deploys Wireguard.
+Creates a server on Hetzner Online and deploys Wireguard along with Caddy to serve a single peer config file and QR code. The webserver supports integrated HTTPS or can offload TLS to Cloudflare.
 
 ## Usage
 
 Example `terraform.tfvars`
 
 ```
-hcloud_token          = "API_TOKEN"
-wg_server_private_key = "WIREGUARD_SERVER_PRIVATE_KEY"
-wg_server_public_key  = "WIREGUARD_SERVER_PUBLIC_KEY"
-wg_client_private_key = "WIREGUARD_CLIENT_PRIVATE_KEY"
-wg_client_public_key  = "WIREGUARD_CLIENT_PUBLIC_KEY"
-wg_subnet_cidr        = "192.168.10.0/24"
+hcloud_token          = "HCLOUD_API_TOKEN"
+cloudflare_token      = "CLOUDFLARE_API_TOKEN"
+cloudflare_https      = false                    // Offload TLS to Cloudflare or use Caddy generated TLS.
+app_name              = "APP_NAME"
+hostname              = "wg"                     // DNS record added to Cloudflare domain name.
+domain_name           = "mydomain.com            // Domain assigned to Cloudflare for automatic DNS assignment.
+wg_subnet_cidr        = "192.168.10.0/24"        // Wireguard subnet CIDR.
 server_name           = "wireguard"
 server_type           = "cpx11"
-image                 = "ubuntu-22.04"
+image                 = "debian-12"
 datacenter            = "hil-dc1"
-secret_path           = "/path/to/secrets"
+secret_path           = "/path/to/secrets"       // Stores public and private SSH keys.
 ```
-
-Stores SSH keys and Wireguard config in `secrets_path`.
 
 ## Notes
 
-* Wireguard configuration will not survive a server reboot at this time.
+* Wireguard configuration may not survive a server reboot at this time.
