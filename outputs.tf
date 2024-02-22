@@ -1,13 +1,13 @@
 output "public_ip" {
-  value = hcloud_server.wireguard.ipv4_address
+  value = module.infrastructure.ipv4_address
 }
 
 output wg_qrcode_url {
-  value     = "https://${var.domain_name}/peer1.conf"
+  value = "https://${local.fqdn}/peer1.png"
 }
 
 output wg_config_url {
-  value     = "https://${var.domain_name}/peer1.png"
+  value = "https://${local.fqdn}/peer1.conf"
 }
 
 output http_username {

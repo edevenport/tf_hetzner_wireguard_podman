@@ -1,13 +1,41 @@
 variable "hcloud_token" {
+  type      = string
   sensitive = true
 }
 
-variable "wg_subnet_cidr" { default = "192.168.10.0/24" }
-variable "server_name" { default = "wireguard" }
-variable "server_type" {}
-variable "image" {}
-variable "image_username" { default = "root" }
+variable "cloudflare_token" {
+  type      = string
+  sensitive = true
+}
+
+variable "app_name" {
+  type    = string
+  default = "wireguard"
+}
+
+variable "hostname" {
+  type    = string
+  default = "wg"
+}
+
+variable "http_username" {
+  type    = string
+  default = "wg"
+}
+
+variable "wg_subnet_cidr" {
+  type    = string
+  default = "192.168.10.0/24"
+}
+
+variable "cloudflare_https" {
+  type    = bool
+  default = false
+}
+
 variable "datacenter" {}
-variable "secrets_path" {}
-variable "http_username" { default = "wg" }
 variable "domain_name" {}
+variable "image" {}
+variable "secrets_path" {}
+variable "server_name" {}
+variable "server_type" {}
